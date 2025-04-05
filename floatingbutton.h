@@ -3,8 +3,6 @@
 
 #include <QWidget>
 #include <QPixmap>
-#include <QMouseEvent>
-#include <QPainter>
 
 class FloatingButton : public QWidget
 {
@@ -20,6 +18,7 @@ protected:
 
 private:
     QPixmap m_buttonImage;
+    bool m_isOn;  // Adăugăm variabila care va ține evidența stării butonului
 };
 
 #endif // FLOATINGBUTTON_H
