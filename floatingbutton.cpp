@@ -28,13 +28,17 @@ FloatingButton::FloatingButton(QWidget *parent)
     setAttribute(Qt::WA_OpaquePaintEvent, false);  // Permite transparența
     setAttribute(Qt::WA_NoSystemBackground, true); // Evită să se coloreze fundalul
 
-    // Plasează butonul într-o locație aleatorie pe ecran
+    // Plasează butonul în centrul ecranului
     QScreen *screen = QGuiApplication::primaryScreen();  // Obține ecranul principal
     QRect screenGeometry = screen->availableGeometry();
     int screenWidth = screenGeometry.width();
     int screenHeight = screenGeometry.height();
-    int x = rand() % (screenWidth - width());
-    int y = rand() % (screenHeight - height());
+
+    // Calculează poziția pentru centrul ecranului
+    int x = (screenWidth - width()) / 2;
+    int y = (screenHeight - height()) / 2;
+
+    // Mutați butonul la coordonatele calculate
     move(x, y);
 }
 
