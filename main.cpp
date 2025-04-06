@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 
 
     Glow432 w;
+    w.setWindowOpacity(0);
     w.show();
     return a.exec();
 }
