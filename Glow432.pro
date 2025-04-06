@@ -12,14 +12,14 @@ CONFIG+= static
 SOURCES += \
     floatingbutton.cpp \
     main.cpp \
-    sound432.cpp
+    glow432.cpp
 
 HEADERS += \
     floatingbutton.h \
-    sound432.h
+    glow432.h
 
 FORMS += \
-    sound432.ui
+    glow432.ui
 
 RESOURCES += resources.qrc
 
@@ -30,5 +30,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    sound432-off.png \
-    sound432-on.png
+    glow432-off.png \
+    glow432-on.png

@@ -1,11 +1,11 @@
-#include "sound432.h"
-#include "ui_sound432.h"
+#include "glow432.h"
+#include "ui_glow432.h"
 #include "floatingbutton.h"
 #include <QIcon>  // Asigură-te că ai importat QIcon
 
-Sound432::Sound432(QWidget *parent)
+Glow432::Glow432(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::Sound432)
+    , ui(new Ui::Glow432)
 {
     ui->setupUi(this);
 
@@ -21,7 +21,7 @@ Sound432::Sound432(QWidget *parent)
     floatingButton->show();
 }
 
-Sound432::~Sound432()
+Glow432::~Glow432()
 {
     delete ui;
 }

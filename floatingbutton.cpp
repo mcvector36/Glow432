@@ -12,7 +12,7 @@ FloatingButton::FloatingButton(QWidget *parent)
     setFixedSize(123, 123);  // Dimensiunea butonului - ajustabilă
 
     // Încarcă imaginea inițială (butonul va fi "off" la început)
-    m_buttonImage = QPixmap(":/sound432-off.png");
+    m_buttonImage = QPixmap(":/glow432-off.png");
 
     // Setează forma widget-ului la cerc
     setMask(QRegion(0, 0, 123, 123, QRegion::Ellipse));
@@ -42,9 +42,9 @@ void FloatingButton::mousePressEvent(QMouseEvent *event)
         m_isOn = !m_isOn;  // Inversează starea (dacă e "on", devine "off" și invers)
 
         if (m_isOn) {
-            m_buttonImage = QPixmap(":/sound432-on.png");
+            m_buttonImage = QPixmap(":/glow432-on.png");
         } else {
-            m_buttonImage = QPixmap(":/sound432-off.png");
+            m_buttonImage = QPixmap(":/glow432-off.png");
         }
 
         // Reactualizează imaginea pe widget

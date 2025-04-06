@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>sound432-on.png</file>
-        <file>sound432-off.png</file>
+        <file>glow432-on.png</file>
+        <file>glow432-off.png</file>
         <file>icon.ico</file>
     </qresource>
 </RCC>

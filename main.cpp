@@ -1,4 +1,4 @@
-#include "sound432.h"
+#include "glow432.h"
 #include <QApplication>
 #include <QIcon>
 
@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     a.setWindowIcon(QIcon(":/icon.ico"));  // Calea corectă către icoana din resurse
 
 
-    Sound432 w;
+    Glow432 w;
     w.show();
     return a.exec();
 }
