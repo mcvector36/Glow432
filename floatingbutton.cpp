@@ -9,7 +9,8 @@
 FloatingButton::FloatingButton(QWidget *parent)
     : QWidget(parent),
     m_isOn(false),
-    m_dragging(false)
+    m_dragging(false),
+    m_moved(false)  // Inițializăm variabila m_moved la false
 {
     setFixedSize(123, 123);
     m_buttonImage = QPixmap(":/glow432-off.png");
@@ -33,6 +34,7 @@ void FloatingButton::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
         m_dragging = true;
+        m_moved = false;  // Resetăm starea de mutare la început
         m_dragPosition = event->globalPosition().toPoint() - frameGeometry().topLeft();
         event->accept();
     }
@@ -41,6 +43,7 @@ void FloatingButton::mousePressEvent(QMouseEvent *event)
 void FloatingButton::mouseMoveEvent(QMouseEvent *event)
 {
     if (m_dragging && (event->buttons() & Qt::LeftButton)) {
+        m_moved = true;  // Dacă am început să mișcăm butonul, setăm m_moved la true
         move(event->globalPosition().toPoint() - m_dragPosition);
         event->accept();
     }
@@ -52,14 +55,19 @@ void FloatingButton::mouseReleaseEvent(QMouseEvent *event)
         m_dragging = false;
         event->accept();
 
-        // Acționează ca buton normal când este doar click, nu drag
+        // Dacă butonul a fost mutat, nu schimbăm imaginea
+        if (m_moved) {
+            return;  // Ieșim din funcție dacă butonul a fost mutat
+        }
+
+        // Dacă nu s-a mutat, interpretăm click-ul și schimbăm imaginea
         if (!m_isOn) {
             m_buttonImage = QPixmap(":/glow432-on.png");
         } else {
             m_buttonImage = QPixmap(":/glow432-off.png");
         }
         m_isOn = !m_isOn;
-        update();
+        update();  // Redesenăm butonul cu noua imagine
     }
 }
 
