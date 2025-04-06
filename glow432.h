@@ -2,6 +2,8 @@
 #define GLOW432_H
 
 #include <QWidget>
+#include <QSystemTrayIcon>
+#include <QMenu>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,5 +21,8 @@ public:
 
 private:
     Ui::Glow432 *ui;
+
+    QSystemTrayIcon *trayIcon;
+    QMenu *trayMenu;
 };
 #endif // GLOW432_H

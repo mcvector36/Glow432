@@ -14,11 +14,17 @@ public:
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
 
 private:
     QPixmap m_buttonImage;
-    bool m_isOn;  // Adăugăm variabila care va ține evidența stării butonului
+    bool m_isOn;
+
+    // Pentru mutare
+    bool m_dragging;
+    QPoint m_dragPosition;
 };
 
 #endif // FLOATINGBUTTON_H

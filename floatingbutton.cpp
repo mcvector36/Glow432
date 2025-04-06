@@ -2,29 +2,24 @@
 #include <QScreen>
 #include <QRegion>
 #include <QPainter>
-#include <QMouseEvent>  // Pentru a captura evenimentul de click
+#include <QMouseEvent>
+#include <QGuiApplication>
 
+// Constructor
 FloatingButton::FloatingButton(QWidget *parent)
     : QWidget(parent),
-    m_isOn(false)  // Inițial butonul va fi "off"
+    m_isOn(false),
+    m_dragging(false)
 {
-    // Setează dimensiunile butonului
-    setFixedSize(123, 123);  // Dimensiunea butonului - ajustabilă
-
-    // Încarcă imaginea inițială (butonul va fi "off" la început)
+    setFixedSize(123, 123);
     m_buttonImage = QPixmap(":/glow432-off.png");
 
-    // Setează forma widget-ului la cerc
     setMask(QRegion(0, 0, 123, 123, QRegion::Ellipse));
+    setWindowFlags(Qt::FramelessWindowHint | Qt::ToolTip);
+    setAttribute(Qt::WA_OpaquePaintEvent, false);
+    setAttribute(Qt::WA_NoSystemBackground, true);
+    setMouseTracking(true); // Nu e strict necesar, dar ajută la interactivitate
 
-    // Setează fereastra să fie fără margini și fără titlu
-    setWindowFlags(Qt::FramelessWindowHint | Qt::ToolTip); // Fereastra fără margini și titlu
-
-    // Setează fundalul transparent
-    setAttribute(Qt::WA_OpaquePaintEvent, false);  // Permite transparența
-    setAttribute(Qt::WA_NoSystemBackground, true); // Evită să se coloreze fundalul
-
-    // Plasează butonul în centrul ecranului
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->availableGeometry();
     int x = (screenGeometry.width() - width()) / 2;
@@ -36,18 +31,34 @@ FloatingButton::~FloatingButton() {}
 
 void FloatingButton::mousePressEvent(QMouseEvent *event)
 {
-    // Verifică dacă a fost apăsat butonul
     if (event->button() == Qt::LeftButton) {
-        // Schimbă imaginea
-        m_isOn = !m_isOn;  // Inversează starea (dacă e "on", devine "off" și invers)
+        m_dragging = true;
+        m_dragPosition = event->globalPosition().toPoint() - frameGeometry().topLeft();
+        event->accept();
+    }
+}
 
-        if (m_isOn) {
+void FloatingButton::mouseMoveEvent(QMouseEvent *event)
+{
+    if (m_dragging && (event->buttons() & Qt::LeftButton)) {
+        move(event->globalPosition().toPoint() - m_dragPosition);
+        event->accept();
+    }
+}
+
+void FloatingButton::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+        m_dragging = false;
+        event->accept();
+
+        // Acționează ca buton normal când este doar click, nu drag
+        if (!m_isOn) {
             m_buttonImage = QPixmap(":/glow432-on.png");
         } else {
             m_buttonImage = QPixmap(":/glow432-off.png");
         }
-
-        // Reactualizează imaginea pe widget
+        m_isOn = !m_isOn;
         update();
     }
 }
@@ -57,8 +68,7 @@ void FloatingButton::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    // Desenează imaginea PNG pe widget
     if (!m_buttonImage.isNull()) {
-        painter.drawPixmap(0, 0, width(), height(), m_buttonImage);  // Ajustează imaginea să se potrivească
+        painter.drawPixmap(0, 0, width(), height(), m_buttonImage);
     }
 }
