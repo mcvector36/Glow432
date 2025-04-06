@@ -5,13 +5,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-    // Setează icoana aplicației
-    a.setWindowIcon(QIcon(":/icon.ico"));  // Calea corectă către icoana din resurse
-
+    a.setWindowIcon(QIcon(":/icon.ico"));
 
     Glow432 w;
-    w.setWindowOpacity(0);
-    w.show();
+    // w.setWindowOpacity(0); ← mutat deja în constructor
+    // w.show(); ← deja apelat în constructor
     return a.exec();
 }
