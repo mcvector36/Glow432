@@ -25,6 +25,7 @@ private:
     // Pentru mutare
     bool m_dragging;
     bool m_moved;  // Adăugăm această variabilă pentru a urmări dacă butonul a fost mutat
+
     QPoint m_dragPosition;
 };
 

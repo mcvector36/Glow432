@@ -43,6 +43,7 @@ void FloatingButton::mousePressEvent(QMouseEvent *event)
 void FloatingButton::mouseMoveEvent(QMouseEvent *event)
 {
     if (m_dragging && (event->buttons() & Qt::LeftButton)) {
+
         m_moved = true;  // Dacă am început să mișcăm butonul, setăm m_moved la true
         move(event->globalPosition().toPoint() - m_dragPosition);
         event->accept();
@@ -54,6 +55,7 @@ void FloatingButton::mouseReleaseEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton) {
         m_dragging = false;
         event->accept();
+
 
         // Dacă butonul a fost mutat, nu schimbăm imaginea
         if (m_moved) {
@@ -68,6 +70,7 @@ void FloatingButton::mouseReleaseEvent(QMouseEvent *event)
         }
         m_isOn = !m_isOn;
         update();  // Redesenăm butonul cu noua imagine
+
     }
 }
 
